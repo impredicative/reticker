@@ -6,7 +6,8 @@ It does not however validate or use a whitelist of tickers.
 
 ## Example
 ```python
->>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+$Z pair still grow? IMHO, SOXL is king!")
+>>> import reticker
+>>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? IMHO, SOXL is king!\nBTW, will the $w+$Z pair still grow?")
 ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
 ```
 
