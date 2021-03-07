@@ -13,7 +13,7 @@ class TestPattern(unittest.TestCase):
 
 class TestExtraction(unittest.TestCase):
     def test_default_config(self):
-        text = "Comparing FNGU vs $SOXL- who wins? And what about $Fngu vs $webl? BTW, will the $w+$Z pair still grow?"
-        expected = ["FNGU", "SOXL", "WEBL", "W", "Z"]
+        text = "Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+$Z pair still grow? IMHO, SOXL is king!"
+        expected = ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
         extracted = reticker.TickerExtractor().extract(text)
         self.assertEqual(expected, extracted)
