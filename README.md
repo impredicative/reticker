@@ -4,7 +4,7 @@ It does not however validate or use a whitelist of tickers.
 
 [![cicd badge](https://github.com/impredicative/reticker/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/reticker/actions?query=workflow%3Acicd+branch%3Amaster)
 
-## Example:
+## Example
 ```python
 >>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+$Z pair still grow? IMHO, SOXL is king!")
 ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
@@ -21,8 +21,8 @@ It does not however validate or use a whitelist of tickers.
 | Caption   | Link                                               |
 |-----------|----------------------------------------------------|
 | Code      | https://github.com/impredicative/reticker/         |
-| Release   | https://pypi.org/project/reticker/                 |
 | Changelog | https://github.com/impredicative/reticker/releases |
+| Release   | https://pypi.org/project/reticker/                 |
 
 ## Installation
 Python ≥3.8 is required.
