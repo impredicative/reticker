@@ -25,9 +25,7 @@ It does not however validate or use a whitelist of tickers.
 | Release   | https://pypi.org/project/reticker/                 |
 
 ## Installation
-Python ≥3.8 is required.
-
-To install the package, run:
+Python ≥3.8 is required. To install, run:
 
     pip install reticker
 
