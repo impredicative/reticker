@@ -20,6 +20,7 @@ It does not however validate or use a whitelist of such tickers.
 ## Links
 * Code: https://github.com/impredicative/reticker/
 * Release: https://pypi.org/project/reticker/
+* Changelog: https://github.com/impredicative/reticker/releases
 
 ## Installation
 Python ≥3.8 is required.
