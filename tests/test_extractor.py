@@ -41,14 +41,16 @@ class TestExtraction(unittest.TestCase):
         assert "WEBL" not in reticker.BLACKLIST
         assert "TECL" not in reticker.BLACKLIST
 
-        self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig()).extract("WEBL $TECL"), ["WEBL", "TECL"])
+        self.assertEqual(reticker.TickerExtractor().extract("WEBL $TECL"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(unprefixed_uppercase=True)).extract("WEBL $TECL"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(unprefixed_uppercase=False)).extract("WEBL $TECL"), ["TECL"])
 
+        self.assertEqual(reticker.TickerExtractor().extract("WEBL $tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig()).extract("WEBL $tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(prefixed_lowercase=True)).extract("WEBL $tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(prefixed_lowercase=False)).extract("WEBL $tecl"), ["WEBL"])
 
+        self.assertEqual(reticker.TickerExtractor().extract("WEBL $Tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig()).extract("WEBL $Tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(prefixed_titlecase=True)).extract("WEBL $Tecl"), ["WEBL", "TECL"])
         self.assertEqual(reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(prefixed_titlecase=False)).extract("WEBL $Tecl"), ["WEBL"])
