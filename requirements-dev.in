@@ -1,5 +1,6 @@
 autopep8
 black
+coverage
 isort
 mypy
 pip-tools
@@ -7,6 +8,7 @@ pycodestyle
 pydocstyle
 pylint
 pytest
+pytest-cov
 pytest-isort
 pytest-mccabe
 pytest-mypy
