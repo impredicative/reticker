@@ -52,6 +52,6 @@ Python ≥3.8 is required. To install, run:
 >>> ticker_match_config = reticker.TickerMatchConfig(unprefixed_uppercase=False, prefixed_lowercase=False, prefixed_titlecase=False)
 >>> extractor = reticker.TickerExtractor(deduplicate=False, match_config=ticker_match_config)
 
->>> extractor.extract("The ARKs, e.g. $ARKG/$ARKK/$ARKQ had been struggling but I feel they will all rise again, especially $ARKK.")
+>>> extractor.extract("The ARKs, e.g. $ARKG/$ARKK/$ARKQ, had been struggling but I feel they will all rise again, especially $ARKK.")
 ['ARKG', 'ARKK', 'ARKQ', 'ARKK']
 ```
