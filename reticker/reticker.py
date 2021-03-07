@@ -6,14 +6,14 @@ from . import config
 
 
 class TickerMatchConfig:
-    def __init__(self, unprefixed_uppercase: bool = True, prefixed_lowercase: bool = True, prefixed_titlecase: bool = True):
+    def __init__(self, *, unprefixed_uppercase: bool = True, prefixed_lowercase: bool = True, prefixed_titlecase: bool = True):
         self.unprefixed_uppercase = unprefixed_uppercase
         self.prefixed_lowercase = prefixed_lowercase
         self.prefixed_titlecase = prefixed_titlecase
 
 
 class TickerExtractor:
-    def __init__(self, deduplicate: bool = True, match_config: Optional[TickerMatchConfig] = None) -> None:
+    def __init__(self, *, deduplicate: bool = True, match_config: Optional[TickerMatchConfig] = None) -> None:
         self.deduplicate = deduplicate
         self.match_config = match_config or TickerMatchConfig()
 
