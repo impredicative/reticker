@@ -20,7 +20,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/impredicative/reticker/",
     packages=find_packages(exclude=["scripts"]),
-    package_data={_PACKAGE_NAME: ["config/blacklist.txt"]},
+    package_data={_PACKAGE_NAME: ["config/blacklist/*.txt"]},
     python_requires=">=3.8",
     classifiers=[  # https://pypi.org/classifiers/
         "Programming Language :: Python :: 3.8",

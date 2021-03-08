@@ -15,6 +15,7 @@ disable=
     logging-format-interpolation,
     logging-fstring-interpolation,
     no-init,
+    superfluous-parens,
     too-few-public-methods,
     too-many-instance-attributes,
     fixme

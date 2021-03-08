@@ -13,14 +13,6 @@ class TestExtraction(unittest.TestCase):
     def test_pattern_type(self):
         self.assertIsInstance(self.default_ticker_extractor.pattern, re.Pattern)
 
-    def test_blacklist(self):
-        blacklist = reticker.BLACKLIST
-        self.assertIsInstance(blacklist, set)
-        for entry in blacklist:
-            self.assertIsInstance(entry, str)
-            self.assertTrue(entry)
-            self.assertEqual(entry.strip().upper(), entry)
-
     def test_default_config(self):
         text = "Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+$Z pair still grow? IMHO, SOXL is king!"
         expected = ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
