@@ -9,18 +9,34 @@ from . import config
 class TickerMatchConfig:
     """Ticker match configuration."""
 
-    def __init__(self, *, unprefixed_uppercase: bool = True, prefixed_lowercase: bool = True, prefixed_titlecase: bool = True):
-        """Return the ticker matching configuration.
+    def __init__(
+        self,
+        *,
+        prefixed_uppercase: bool = True,
+        unprefixed_uppercase: bool = True,
+        prefixed_lowercase: bool = True,
+        prefixed_titlecase: bool = True,
+        separators: Optional[str] = ".-="
+    ):
+        """Return configuration for matching tickers.
 
-        Note that a prefixed uppercase ticker, e.g. $SPY, is always matched.
-
-        :param unprefixed_uppercase: Match SPY.
-        :param prefixed_lowercase: Match $spy
-        :param prefixed_titlecase: Match $Spy.
+        :param prefixed_uppercase: Match prefixed uppercase, e.g. $SPY
+        :param unprefixed_uppercase: Match unprefixed uppercase, e.g. SPY
+        :param prefixed_lowercase: Match prefixed lowercase, e.g. $spy
+        :param prefixed_titlecase: Match prefixed titlecase, e.g. $Spy
+        :param separators: Match two parts separated by one of the separators, e.g. BRK.A, BRK-B, MGC=F
         """
+        assert any([prefixed_uppercase, unprefixed_uppercase, prefixed_lowercase, prefixed_titlecase])
+        self.prefixed_uppercase = prefixed_uppercase
         self.unprefixed_uppercase = unprefixed_uppercase
         self.prefixed_lowercase = prefixed_lowercase
         self.prefixed_titlecase = prefixed_titlecase
+
+        separators = separators or ""
+        assert " " not in separators
+        assert "$" not in separators
+        assert len(separators) == len(set(separators))
+        self.separators = separators
 
 
 class TickerExtractor:
@@ -44,15 +60,26 @@ class TickerExtractor:
         match_config = self.match_config
         pattern_format = r"\b{pattern}\b"
         pos_prefix, neg_prefix = r"(?<=\$)", r"(?<!\$)"
-        patterns = [pos_prefix + r"[A-Z]{1,6}"]  # Match prefixed uppercase.
+        separable = bool(match_config.separators)
+        separator = "[" + re.escape(match_config.separators) + "]"
+        # separator = "(?:" + "|".join(map(re.escape, match_config.separators)) + ")"  # Alt technique.
+        patterns = []
 
+        def append_patterns(part1: str, part2: str) -> None:
+            if separable:
+                patterns.append(part1 + separator + part2)
+            patterns.append(part1)
+
+        if match_config.prefixed_uppercase:
+            append_patterns(pos_prefix + r"[A-Z]{1,6}", r"[A-Z]{1,3}")
         if match_config.unprefixed_uppercase:
-            patterns.append(neg_prefix + r"[A-Z]{2,6}")
+            append_patterns(neg_prefix + r"[A-Z]{2,6}", r"[A-Z]{1,3}")
         if match_config.prefixed_lowercase:
-            patterns.append(pos_prefix + r"[a-z]{1,6}")
+            append_patterns(pos_prefix + r"[a-z]{1,6}", r"[a-z]{1,3}")
         if match_config.prefixed_titlecase:
-            patterns.append(pos_prefix + r"[A-Z]{1}[a-z]{2,5}")
+            append_patterns(pos_prefix + r"[A-Z]{1}[a-z]{2,5}", r"[A-Za-z]{1}[a-z]{0,2}")
 
+        # Join patterns
         patterns = [pattern_format.format(pattern=pattern) for pattern in patterns]
         pattern = re.compile("|".join(patterns), flags=re.ASCII)
         return pattern

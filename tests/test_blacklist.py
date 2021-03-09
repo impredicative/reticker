@@ -9,6 +9,7 @@ class TestBlacklist(unittest.TestCase):
     def test_blacklist(self):
         blacklist = reticker.BLACKLIST
         self.assertIsInstance(blacklist, set)
+        self.assertTrue(blacklist)
         for entry in blacklist:
             self.assertIsInstance(entry, str)
             self.assertTrue(entry)
