@@ -1,5 +1,5 @@
 # reticker
-**reticker** uses Python 3.8 to extract what look like US-style stock tickers from the given text. It uses a configurably created regular expression.
+**reticker** uses Python 3.8 to extract what look like stock tickers from the given text. It uses a configurably created regular expression.
 It does not however validate or use a whitelist of tickers.
 
 [![cicd badge](https://github.com/impredicative/reticker/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/reticker/actions?query=workflow%3Acicd+branch%3Amaster)
