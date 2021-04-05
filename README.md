@@ -4,11 +4,15 @@ It does not however validate or use a whitelist of tickers.
 
 [![cicd badge](https://github.com/impredicative/reticker/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/reticker/actions?query=workflow%3Acicd+branch%3Amaster)
 
-## Example
+## Examples
 ```python
 >>> import reticker
+
 >>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? IMHO, SOXL is king!\nBTW, will the $w+$Z pair still grow?")
-["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
+['FNGU', 'WEBL', 'SOXL', 'CLDL', 'SKYU', 'W', 'Z']
+
+>>> reticker.TickerExtractor().extract("Which of BTC-USD, $ETH-USD and $ada-usd is best?\nWhat about $Brk.a and $Brk.B? Compare futures MGC=F and SIL=F.")
+['BTC-USD', 'ETH-USD', 'ADA-USD', 'BRK.A', 'BRK.B', 'MGC=F', 'SIL=F']
 ```
 
 ## Features
@@ -35,23 +39,29 @@ Python ≥3.8 is required. To install, run:
 ### Default usage
 ```python
 >>> import reticker
->>> extractor = reticker.TickerExtractor()
 
+>>> extractor = reticker.TickerExtractor()
 >>> type(extractor.pattern)
 <class 're.Pattern'>
 
->>> extractor.extract("Has $GLD/IAU bottomed yet? What's the prospect for gold miners like $nugt?")
-['GLD', 'IAU', 'NUGT']
+>>> extractor.extract("Has $GLD/IAU bottomed yet? What's the prospect for gold miners like $nugt? Maybe check gold futures MGC=F!")
+['GLD', 'IAU', 'NUGT', 'MGC=F']
 ```
 
 ### Customized usage
 ```python
 >>> import reticker
->>> reticker.BLACKLIST.add("DOGE")
->>> reticker.BLACKLIST.remove("CNN")
->>> ticker_match_config = reticker.TickerMatchConfig(unprefixed_uppercase=False, prefixed_lowercase=False, prefixed_titlecase=False)
->>> extractor = reticker.TickerExtractor(deduplicate=False, match_config=ticker_match_config)
 
->>> extractor.extract("The ARKs, e.g. $ARKG/$ARKK/$ARKQ, will rise again, especially $ARKK.")
-['ARKG', 'ARKK', 'ARKQ', 'ARKK']
+>>> reticker.BLACKLIST.add("ARKG")
+>>> reticker.BLACKLIST.remove("CNN")
+>>> ticker_match_config = reticker.TickerMatchConfig(prefixed_uppercase=True, unprefixed_uppercase=False, prefixed_lowercase=False, prefixed_titlecase=False)
+>>> extractor = reticker.TickerExtractor(deduplicate=False, match_config=ticker_match_config)
+>>> extractor.extract("Will the ARKs, e.g. $ARKG/$ARKK/$ARKQ, rise again, especially $ARKK? I'm not a fan of $doge, and ETC is just obsolete.")
+['ARKK', 'ARKQ', 'ARKK']
+
+# Separators:
+>>> reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(separators="-=")).extract("BTC-USD")
+['BTC-USD']
+>>> reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(separators="")).extract("BTC-USD")
+['BTC', 'USD']
 ```
