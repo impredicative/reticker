@@ -16,7 +16,9 @@ It does not however validate or use a whitelist of tickers.
 ```
 
 ## Features
-* Optional matching of unprefixed uppercase, prefixed lowercase, and prefixed titlecase tickers is enabled by default, but can individually be disabled.
+* Optional matching of prefixed uppercase, unprefixed uppercase, prefixed lowercase, and prefixed titlecase tickers is enabled by default, but can individually be disabled.
+  At least one of the four must be enabled.
+* Two-part tickers are also matched using a customizable set of separator characters.  
 * The results are in the order they are first found.
 * By default, the results are deduplicated, although this can be disabled.
 * A configurable blacklist of common false-positives is used.
