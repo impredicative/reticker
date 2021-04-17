@@ -22,6 +22,7 @@ It does not however validate or use a whitelist of tickers.
 * The results are in the order they are first found.
 * By default, the results are deduplicated, although this can be disabled.
 * A configurable blacklist of common false-positives is used.
+* A configurable remapping of specific tickers is supported.
 * For lower level use, a configurably created compiled regular expression can be accessed.
 
 ## Links
@@ -54,16 +55,25 @@ Python ≥3.8 is required. To install, run:
 ```python
 >>> import reticker
 
->>> reticker.BLACKLIST.add("ARKG")
->>> reticker.BLACKLIST.remove("CNN")
+# Custom config:
 >>> ticker_match_config = reticker.TickerMatchConfig(prefixed_uppercase=True, unprefixed_uppercase=False, prefixed_lowercase=False, prefixed_titlecase=False)
 >>> extractor = reticker.TickerExtractor(deduplicate=False, match_config=ticker_match_config)
->>> extractor.extract("Will the ARKs, e.g. $ARKG/$ARKK/$ARKQ, rise again, especially $ARKK? I'm not a fan of $doge, and ETC is just obsolete.")
-['ARKK', 'ARKQ', 'ARKK']
+>>> extractor.extract("Which is better - $BTC or $ADA? I'm not a fan of $doge, and ETH is not competitive.")
+['BTC', 'ADA']
 
 # Separators:
 >>> reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(separators="-=")).extract("BTC-USD")
 ['BTC-USD']
 >>> reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(separators="")).extract("BTC-USD")
 ['BTC', 'USD']
+
+# Blacklist:
+>>> reticker.config.BLACKLIST.add("EUR")
+>>> reticker.TickerExtractor().extract("EUR isn't a ticker, but URE is one.")
+['URE']
+
+# Mapping:
+>>> reticker.config.MAPPING["BTC"] = "BTC-USD"
+>>> reticker.TickerExtractor().extract("What is the Yahoo Finance symbol for BTC?")
+['BTC-USD']
 ```

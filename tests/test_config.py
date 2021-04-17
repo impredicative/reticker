@@ -1,13 +1,13 @@
-"""Test blacklist."""
+"""Test package config."""
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import unittest
 
 import reticker
 
 
-class TestBlacklist(unittest.TestCase):
-    def test_blacklist(self):
-        blacklist = reticker.BLACKLIST
+class TestConfig(unittest.TestCase):
+    def test_blacklist_contents(self):
+        blacklist = reticker.config.BLACKLIST
         self.assertIsInstance(blacklist, set)
         self.assertTrue(blacklist)
         for entry in blacklist:

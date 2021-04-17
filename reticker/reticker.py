@@ -1,7 +1,7 @@
 """Package implementation."""
 import functools
 import re
-from typing import List, Optional, Pattern, Set
+from typing import List, Optional, Pattern
 
 from . import config
 
@@ -50,7 +50,6 @@ class TickerExtractor:
         """
         self.deduplicate = deduplicate
         self.match_config = match_config or TickerMatchConfig()
-        self.blacklist: Set[str] = config.BLACKLIST or set()
 
     @functools.cached_property
     def pattern(self) -> Pattern:
@@ -88,7 +87,8 @@ class TickerExtractor:
     def extract(self, text: str) -> List[str]:
         """Return possible tickers extracted from the given text."""
         matches = [match.upper() for match in self.pattern.findall(text)]
+        matches = [match for match in matches if match not in config.BLACKLIST]  # Is done _before_ 'mapping'.
+        matches = [config.MAPPING.get(match, match) for match in matches]
         if self.deduplicate:
-            matches = list(dict.fromkeys(matches))
-        matches = [match for match in matches if match not in self.blacklist]
+            matches = list(dict.fromkeys(matches))  # Is done _after_ 'mapping'.
         return matches

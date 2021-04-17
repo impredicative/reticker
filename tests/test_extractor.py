@@ -35,6 +35,40 @@ class TestExtraction(unittest.TestCase):
         self.assertEqual(reticker.TickerExtractor(deduplicate=True).extract(text), ["SPY", "QQQ"])
         self.assertEqual(reticker.TickerExtractor(deduplicate=False).extract(text), ["SPY", "QQQ", "SPY"])
 
+    def test_blacklist(self):
+        self.assertNotIn("BLCN", reticker.config.BLACKLIST)
+        self.assertNotIn("BLOK", reticker.config.BLACKLIST)
+        text = "BLCN, BLOK or DAPP?"
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["BLCN", "BLOK", "DAPP"])
+
+        original_blacklist = reticker.config.BLACKLIST.copy()
+        reticker.config.BLACKLIST.add("BLCN")
+        reticker.config.BLACKLIST.add("BLOK")
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["DAPP"])
+
+        reticker.config.BLACKLIST.remove("BLOK")
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["BLOK", "DAPP"])
+
+        reticker.config.BLACKLIST.remove("BLCN")
+        self.assertEqual(reticker.config.BLACKLIST, original_blacklist)
+
+    def test_mapping(self):
+        self.assertNotIn("BTC", reticker.config.MAPPING)
+        text = "ADA BTC RIOT"
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["ADA", "BTC", "RIOT"])
+
+        original_mapping = reticker.config.MAPPING.copy()
+        reticker.config.MAPPING["ADA"] = "ADA-USD"
+        reticker.config.MAPPING["BTC"] = "BTC-USD"
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["ADA-USD", "BTC-USD", "RIOT"])
+
+        del reticker.config.MAPPING["ADA"]
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["ADA", "BTC-USD", "RIOT"])
+        self.assertEqual(self.default_ticker_extractor.extract(f"{text} BTC-USD"), ["ADA", "BTC-USD", "RIOT"])
+
+        del reticker.config.MAPPING["BTC"]
+        self.assertEqual(reticker.config.MAPPING, original_mapping)
+
 
 class TestCustomExtraction(unittest.TestCase):
     def test_prefixed_uppercase(self):
