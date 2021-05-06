@@ -58,8 +58,8 @@ Python ≥3.8 is required. To install, run:
 # Custom config:
 >>> ticker_match_config = reticker.TickerMatchConfig(prefixed_uppercase=True, unprefixed_uppercase=False, prefixed_lowercase=False, prefixed_titlecase=False)
 >>> extractor = reticker.TickerExtractor(deduplicate=False, match_config=ticker_match_config)
->>> extractor.extract("Which is better - $BTC or $ADA? I'm not a fan of $doge, and ETH is not competitive.")
-['BTC', 'ADA']
+>>> extractor.extract("Which is better - $LTC or $ADA? $doge and ETH are already so high.")
+['LTC', 'ADA']
 
 # Separators:
 >>> reticker.TickerExtractor(match_config=reticker.TickerMatchConfig(separators="-=")).extract("BTC-USD")
