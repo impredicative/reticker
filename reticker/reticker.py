@@ -87,8 +87,9 @@ class TickerExtractor:
     def extract(self, text: str) -> List[str]:
         """Return possible tickers extracted from the given text."""
         matches = [match.upper() for match in self.pattern.findall(text)]
-        matches = [match for match in matches if match not in config.BLACKLIST]  # Is done _before_ 'mapping'.
+        matches = [match for match in matches if match not in config.BLACKLIST]  # Is done _before_ mapping.
         matches = [config.MAPPING.get(match, match) for match in matches]
+        matches = [inner_m for m_list in [[outer_m] if isinstance(outer_m, str) else outer_m for outer_m in matches] for inner_m in m_list]  # Conditional flattening of mapping.
         if self.deduplicate:
-            matches = list(dict.fromkeys(matches))  # Is done _after_ 'mapping'.
+            matches = list(dict.fromkeys(matches))  # Is done _after_ mapping.
         return matches

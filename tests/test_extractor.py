@@ -52,7 +52,8 @@ class TestExtraction(unittest.TestCase):
         reticker.config.BLACKLIST.remove("BLCN")
         self.assertEqual(reticker.config.BLACKLIST, original_blacklist)
 
-    def test_mapping(self):
+    def test_mapping_to_str(self):
+        self.assertNotIn("ADA", reticker.config.MAPPING)
         self.assertNotIn("BTC", reticker.config.MAPPING)
         text = "ADA BTC RIOT"
         self.assertEqual(self.default_ticker_extractor.extract(text), ["ADA", "BTC", "RIOT"])
@@ -67,6 +68,22 @@ class TestExtraction(unittest.TestCase):
         self.assertEqual(self.default_ticker_extractor.extract(f"{text} BTC-USD"), ["ADA", "BTC-USD", "RIOT"])
 
         del reticker.config.MAPPING["BTC"]
+        self.assertEqual(reticker.config.MAPPING, original_mapping)
+
+    def test_mapping_to_list(self):
+        self.assertNotIn("COMP", reticker.config.MAPPING)
+        self.assertNotIn("USD", reticker.config.MAPPING)
+        text = 'Is COMP for the equity "Compass, Inc." or is it for the cryptocurrency "Compound USD"?'
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["COMP", "USD"])
+
+        original_mapping = reticker.config.MAPPING.copy()
+        reticker.config.MAPPING["COMP"] = ["COMP", "COMP-USD"]
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["COMP", "COMP-USD", "USD"])
+        reticker.config.MAPPING["USD"] = ["DXY"]
+        self.assertEqual(self.default_ticker_extractor.extract(text), ["COMP", "COMP-USD", "DXY"])
+
+        del reticker.config.MAPPING["COMP"]
+        del reticker.config.MAPPING["USD"]
         self.assertEqual(reticker.config.MAPPING, original_mapping)
 
 

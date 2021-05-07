@@ -22,7 +22,7 @@ It does not however validate or use a whitelist of tickers.
 * The results are in the order they are first found.
 * By default, the results are deduplicated, although this can be disabled.
 * A configurable blacklist of common false-positives is used.
-* A configurable remapping of specific tickers is supported.
+* A configurable remapping of tickers is supported.
 * For lower level use, a configurably created compiled regular expression can be accessed.
 
 ## Links
@@ -76,4 +76,7 @@ Python ≥3.8 is required. To install, run:
 >>> reticker.config.MAPPING["BTC"] = "BTC-USD"
 >>> reticker.TickerExtractor().extract("What is the Yahoo Finance symbol for BTC?")
 ['BTC-USD']
+>>> reticker.config.MAPPING["COMP"] = ["COMP", "COMP-USD"]
+>>> reticker.TickerExtractor().extract('Is COMP for the equity named "Compass" or for the crypto named "Compound"? I want both!')
+['COMP', 'COMP-USD']
 ```
