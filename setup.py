@@ -14,7 +14,7 @@ setup(
     author="Ouroboros Chrysopoeia",
     author_email="impredicative@users.noreply.github.com",
     version=cast(Match, re.fullmatch(r"refs/tags/v?(?P<ver>\S+)", os.environ["GITHUB_REF"]))["ver"],  # Ex: GITHUB_REF="refs/tags/1.2.3"; version="1.2.3"
-    description="Use a regular expression to extract US style stock tickers from text",
+    description="Use a regular expression to extract possible stock tickers from text",
     keywords="regex regexp stock text ticker",
     long_description=(_DIR / "README.md").read_text().strip(),
     long_description_content_type="text/markdown",
