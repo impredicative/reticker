@@ -1,6 +1,6 @@
 # reticker
-**reticker** uses Python 3.8 to extract what look like stock tickers from the given text. It uses a configurably created regular expression.
-It does not however validate or use a whitelist of tickers.
+**reticker** is a Python 3.8 package to extract what look like stock tickers from the given text.
+It uses a configurably created regular expression. It does not however validate or use a whitelist of tickers.
 
 [![cicd badge](https://github.com/impredicative/reticker/workflows/cicd/badge.svg?branch=master)](https://github.com/impredicative/reticker/actions?query=workflow%3Acicd+branch%3Amaster)
 
@@ -31,12 +31,13 @@ It does not however validate or use a whitelist of tickers.
 | Repo      | https://github.com/impredicative/reticker/         |
 | Changelog | https://github.com/impredicative/reticker/releases |
 | Package   | https://pypi.org/project/reticker/                 |
-| Donation  | [BTC](https://blockchair.com/bitcoin/address/bc1q05p96m0s9kqe9c67jq87sjsnuv6vmzeuxea872) / [LTC](https://blockchair.com/litecoin/address/ltc1q95jq6j78kvyfrvxalwgt9m9xhj9f4r7jfwrqth) / [ETH](https://blockchair.com/ethereum/address/0x0d2d5c576af8ed9f3833f4a3b1e4de6cac2285f0) / [DOGE](https://blockchair.com/dogecoin/address/D5atn8Q9f5iBXrWByxW3i3483QFNH4RFnP) |
 
 ## Installation
 Python ≥3.8 is required. To install, run:
 
     pip install reticker
+
+No additional third-party packages are required or installed.
 
 ## Usage
 
