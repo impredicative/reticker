@@ -16,7 +16,7 @@ It uses a configurably created regular expression. It does not however validate 
 ```
 
 ## Features
-* Optional matching of prefixed uppercase (e.g. $SPY), unprefixed uppercase (e.g. SPY), prefixed lowercase (e.g. $spy), and prefixed titlecase tickers (e.g. $Spy) is enabled by default, but can individually be disabled.
+* Optional matching of prefixed uppercase (e.g. `$SPY`), unprefixed uppercase (e.g. `SPY`), prefixed lowercase (e.g. `$spy`), and prefixed titlecase tickers (e.g. `$Spy`) is enabled by default, but can individually be disabled.
   At least one of the four must be enabled.
 * Two-part tickers are also matched using a customizable set of separator characters.  
 * The results are in the order they are first found.
