@@ -14,8 +14,8 @@ class TestExtraction(unittest.TestCase):
         self.assertIsInstance(self.default_ticker_extractor.pattern, re.Pattern)
 
     def test_default_config_with_unseparated_tickers(self):
-        text = "Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+$Z pair still grow? IMHO, SOXL is king!"
-        expected = ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z"]
+        text = "Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+Z pair still grow? IMHO, SOXL is king! [V]isa is A-okay!"
+        expected = ["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z", "V", "A"]
         extracted = self.default_ticker_extractor.extract(text)
         self.assertEqual(expected, extracted)
 

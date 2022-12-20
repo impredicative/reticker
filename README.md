@@ -8,8 +8,8 @@ It uses a configurably created regular expression. It does not however validate 
 ```python
 >>> import reticker
 
->>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? IMHO, SOXL is king!\nBTW, will the $w+$Z pair still grow?")
-['FNGU', 'WEBL', 'SOXL', 'CLDL', 'SKYU', 'W', 'Z']
+>>> reticker.TickerExtractor().extract("Comparing FNGU vs $WEBL vs SOXL- who wins? And what about $cldl vs $Skyu? BTW, will the $w+Z pair still grow? IMHO, SOXL is king! [V]isa is A-okay!")
+["FNGU", "WEBL", "SOXL", "CLDL", "SKYU", "W", "Z", "V", "A"]
 
 >>> reticker.TickerExtractor().extract("Which of BTC-USD, $ETH-USD and $ada-usd is best?\nWhat about $Brk.a and $Brk.B? Compare futures MGC=F and SIL=F.")
 ['BTC-USD', 'ETH-USD', 'ADA-USD', 'BRK.A', 'BRK.B', 'MGC=F', 'SIL=F']
