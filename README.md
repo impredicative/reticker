@@ -71,8 +71,9 @@ No additional third-party packages are required or installed.
 
 # Blacklist:
 >>> reticker.config.BLACKLIST.add("EUR")
->>> reticker.TickerExtractor().extract("EUR isn't a ticker, but URE is one.")
-['URE']
+>>> reticker.config.BLACKLIST.remove("I")
+>>> reticker.TickerExtractor().extract("I see that EUR isn't a ticker, but URE is one.")
+['I', 'URE']
 
 # Mapping:
 >>> reticker.config.MAPPING["BTC"] = "BTC-USD"

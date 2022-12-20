@@ -73,7 +73,7 @@ class TickerExtractor:
         if match_config.prefixed_uppercase:
             append_patterns(pos_prefix + r"[A-Z]{1,6}", r"[A-Z]{1,3}")
         if match_config.unprefixed_uppercase:
-            append_patterns(neg_prefix + r"[A-Z]{2,6}", r"[A-Z]{1,3}")
+            append_patterns(neg_prefix + r"[A-Z]{1,6}", r"[A-Z]{1,3}")
         if match_config.prefixed_lowercase:
             append_patterns(pos_prefix + r"[a-z]{1,6}", r"[a-z]{1,3}")
         if match_config.prefixed_titlecase:
