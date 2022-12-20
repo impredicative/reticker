@@ -19,7 +19,7 @@ setup(
     long_description=(_DIR / "README.md").read_text().strip(),
     long_description_content_type="text/markdown",
     url="https://github.com/impredicative/reticker/",
-    packages=find_packages(exclude=["scripts"]),
+    packages=find_packages(exclude=["scripts", "tests"]),
     package_data={_PACKAGE_NAME: ["config/blacklist/*.txt"]},
     python_requires=">=3.8",
     classifiers=[  # https://pypi.org/classifiers/
